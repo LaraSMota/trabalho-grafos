@@ -39,17 +39,19 @@ def seleciona_funcionalidade(opcao):
     imprime_vertices('Vértices criados: ', grafo.vertices)
     id_vertice = input('Digite o id do vértice: ').upper()
     grafo.deleta_vertice(id_vertice)
-  #DELETAR ARESTA
-  elif opcao == 4:
+  elif opcao == 4:  #DELETAR ARESTA
     imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ').upper()
     aresta_deletada = grafo.deleta_aresta(id_aresta)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
-  elif opcao == 5:  #TESTAR EXISTENCIA DE ARESTA
+  elif opcao == 6:  #VERTICES ADJACENTES
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
     imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
+  elif opcao == 7:  #IMPRIME GRAU DE VERTICE
+    id_vertice = input('Digite o id do vértice: ').upper()
+    print("Grau: " + grafo.get_vertice_grau(id_vertice))
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
     print("Grafo: " + grafo.nome + "\n")
     imprime_vertices('Vértices existentes: ', grafo.vertices)

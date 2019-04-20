@@ -15,11 +15,21 @@ class Grafo:
     existe_vertice_1 = self.elemento_existe(vertice_1, self.vertices)
     existe_vertice_2 = self.elemento_existe(vertice_2, self.vertices)
     if existe_vertice_1 and existe_vertice_2:
+      self.aumenta_grau_vertice(vertice_1)
+      self.aumenta_grau_vertice(vertice_2)
       aresta = Aresta(id, vertice_1, vertice_2, peso)
       self.arestas.append(aresta)
       return True
     else:
       return False
+
+  def aumenta_grau_vertice(self, id_vertice):
+    index = self.get_vertice_index(id_vertice)
+    self.vertices[index].aumenta_grau()
+  
+  def diminui_grau_vertice(self, id_vertice):
+    index = self.get_vertice_index(id_vertice)
+    self.vertices[index].diminui_grau()
 
   def criar_vertices(self, id):
     lista_vertices = self.get_lista_elementos(id)
@@ -39,7 +49,11 @@ class Grafo:
 
   def deleta_aresta(self, id):
     index = self.get_aresta_index(id)
-    self.arestas.pop(index)
+    aresta = self.arestas.pop(index)
+    vertice_1 = aresta.vertice_1
+    vertice_2 = aresta.vertice_2
+    self.diminui_grau_vertice(vertice_1)
+    self.diminui_grau_vertice(vertice_2)
     return index
 
   def get_aresta_index(self, id_aresta):
@@ -72,6 +86,11 @@ class Grafo:
         aux_arestas.append(a.id)
     return aux_arestas
   
+  def get_vertice_grau(self, id):
+    index = self.get_vertice_index(id)
+    vertice = self.vertices[index]
+    return vertice.grau
+
   def get_vertice_index(self, id):
     for index, vertice in enumerate(self.vertices):
       if vertice.id == id:
