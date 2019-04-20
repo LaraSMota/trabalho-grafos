@@ -56,9 +56,9 @@ def seleciona_funcionalidade(opcao):
     imprime_vertices_adjacentes('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
   elif opcao == 7:  #IMPRIME GRAU DE VERTICE
     id_vertice = input('Digite o id do vértice: ').upper()
-    print("Grau: " + grafo.get_vertice_grau(id_vertice))
+    print('Grau: {}'.format(grafo.get_vertice_grau(id_vertice)))
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
-    print("Grafo: " + grafo.nome + "\n")
+    print("Grafo: {}\n".format(grafo.nome))
     imprime_vertices('Vértices existentes: ', grafo.vertices)
     imprime_arestas('Arestas existentes: ', grafo.arestas)
   else:
