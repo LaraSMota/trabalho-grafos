@@ -83,7 +83,25 @@ class Grafo:
       if a.vertice_1 == id_vertice or a.vertice_2 == id_vertice:
         aux_arestas.append(a.id)
     return aux_arestas
+
+  def grau_minimo(self):
+    graus_vertices = self.lista_graus()
+    return min(graus_vertices)
+
+  def grau_medio(self):
+    graus_vertices = self.lista_graus()
+    return sum(graus_vertices)/len(graus_vertices)
+    
+  def grau_maximo(self):
+    graus_vertices = self.lista_graus()
+    return max(graus_vertices)
   
+  def lista_graus(self):
+    aux = []
+    for vertice in self.vertices:
+      aux.append(vertice.grau)
+    return aux
+
   def get_vertice_grau(self, id):
     index = self.get_vertice_index(id.upper())
     vertice = self.vertices[index]

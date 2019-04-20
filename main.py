@@ -24,6 +24,7 @@ def seleciona_funcionalidade(opcao):
   if opcao == 1:  #INSERIR VERTICES
     vertices = input('Digite os vértices: ')
     grafo.criar_vertices(vertices)
+  
   elif opcao == 2:  #INSERIR ARESTA
     imprime_vertices('Vértices existentes: ', grafo.vertices)
     aresta_criada = False
@@ -35,32 +36,44 @@ def seleciona_funcionalidade(opcao):
       vertice_2 = input('Digite o vertice 2: ').upper()
       peso = int(input('Digite o peso: '))
       aresta_criada = grafo.criar_aresta(id, vertice_1, vertice_2, peso)
+  
   elif opcao == 3:  #DELETAR VERTICE
     imprime_vertices('Vértices criados: ', grafo.vertices)
     id_vertice = input('Digite o id do vértice: ').upper()
     grafo.deleta_vertice(id_vertice)
+  
   elif opcao == 4:  #DELETAR ARESTA
     imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ').upper()
     aresta_deletada = grafo.deleta_aresta(id_aresta)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
-  elif opcao == 5:
+  
+  elif opcao == 5: #VERIFICA ARESTA
     v1 = input('Digite o id do primeiro vértice: ').upper()
     v2 = input('Digite o id do segundo vértice: ').upper()
     resposta = grafo.exite_aresta_entre_vertices(v1, v2)
     print('\n', resposta['msg'])
-  elif opcao == 6:
+  
+  elif opcao == 6: #VERTICES ADJACENTES
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
     imprime_vertices_adjacentes('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
+  
   elif opcao == 7:  #IMPRIME GRAU DE VERTICE
     id_vertice = input('Digite o id do vértice: ').upper()
     print('Grau: {}'.format(grafo.get_vertice_grau(id_vertice)))
+
+  elif opcao == 8:  #IMPRIME GRAU MINIMO, MEDIO E MAXIMO
+    print("Grau mínimo: {}\n".format(grafo.grau_minimo()))
+    print("Grau médio: {}\n".format(grafo.grau_medio()))
+    print("Grau máximo: {}".format(grafo.grau_maximo())) 
+   
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
     print("Grafo: {}\n".format(grafo.nome))
     imprime_vertices('Vértices existentes: ', grafo.vertices)
     imprime_arestas('Arestas existentes: ', grafo.arestas)
+
   else:
     print('Xau')
 
@@ -98,8 +111,6 @@ while opcao != 14:
   opcao = int(input('Selecione uma opção: '))
   print('----------------------- \n')
   seleciona_funcionalidade(opcao)
-
-print("FIM DE EXECUÇÃO")
 # SETUP DE TESTES
 # grafo = Grafo('Grafo 1')
 # vertices = input('Digite os vértices')
