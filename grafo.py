@@ -85,7 +85,7 @@ class Grafo:
     return aux_arestas
   
   def get_vertice_grau(self, id):
-    index = self.get_vertice_index(id)
+    index = self.get_vertice_index(id.upper())
     vertice = self.vertices[index]
     return vertice.grau
 
