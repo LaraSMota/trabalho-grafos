@@ -53,12 +53,9 @@ class Grafo:
     vertices_adjacentes = []
     for aresta in self.arestas:
       if aresta.vertice_1 == id_vertice:
-        print('entrou 1')
         vertices_adjacentes.append(aresta.vertice_2)
       elif aresta.vertice_2 == id_vertice:
-        print('entrou 2')
         vertices_adjacentes.append(aresta.vertice_1)
-    print('adjacentes ', vertices_adjacentes)
     return vertices_adjacentes
 
   def deleta_vertice(self, id):

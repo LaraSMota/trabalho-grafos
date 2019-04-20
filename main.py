@@ -4,13 +4,19 @@ opcao = 0
 
 def imprime_vertices(msg, vertices):
   v_concatenado = ''
-  for v in grafo.vertices:
+  for v in vertices:
     v_concatenado += (v.id + ' ')
   print(msg, v_concatenado, '\n')
 
+def imprime_vertices_adjacentes(vertices):
+  v_concatenado = ''
+  for v in vertices:
+    v_concatenado += (v + ' ')
+  print(v_concatenado, '\n')
+
 def imprime_arestas(msg, arestas):
   a_concatenado = ''
-  for a in grafo.arestas:
+  for a in arestas:
     a_concatenado += (a.id + ' ')
   print(msg, a_concatenado, '\n')
 
@@ -36,8 +42,8 @@ def seleciona_funcionalidade(opcao):
       print('OBS: Ambos os vértices devem existir')
       print('------------------------------------')
       id = input('Digite um identificador para a aresta: ')
-      vertice_1 = input('Digite o vertice 1: ')
-      vertice_2 = input('Digite o vertice 2: ')
+      vertice_1 = input('Digite o vertice 1: ').upper()
+      vertice_2 = input('Digite o vertice 2: ').upper()
       peso = int(input('Digite o peso: '))
       aresta_criada = grafo.criar_aresta(id, vertice_1, vertice_2, peso)
   elif opcao == 4:
@@ -53,7 +59,6 @@ def seleciona_funcionalidade(opcao):
   elif opcao == 7:
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
-    print(vertices_adjacentes)
     imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
   else:
     print('Xau')
