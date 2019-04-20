@@ -23,7 +23,7 @@ def imprime_arestas(msg, arestas):
 def seleciona_funcionalidade(opcao):
   if opcao == 1:
     nome_grafo = input('Digite nome do grafo: ')
-    direcionado = input('É direcionado?(y ou n) ')
+    direcionado = input('É direcionado?(s ou n) ')
     while direcionado != 's' and direcionado != 'n':
       direcionado = input('Digite \'s\' ou \'n\': ')
     if direcionado == 's':
@@ -41,14 +41,14 @@ def seleciona_funcionalidade(opcao):
     while aresta_criada == False:
       print('OBS: Ambos os vértices devem existir')
       print('------------------------------------')
-      id = input('Digite um identificador para a aresta: ')
+      id = input('Digite um identificador para a aresta: ').upper()
       vertice_1 = input('Digite o vertice 1: ').upper()
       vertice_2 = input('Digite o vertice 2: ').upper()
       peso = int(input('Digite o peso: '))
       aresta_criada = grafo.criar_aresta(id, vertice_1, vertice_2, peso)
   elif opcao == 4:
     imprime_arestas('Arestas existentes: ', grafo.arestas)
-    id_aresta = input('Digite o id da aresta: ')
+    id_aresta = input('Digite o id da aresta: ').upper()
     aresta_deletada = grafo.deleta_aresta(id_aresta)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
@@ -60,6 +60,10 @@ def seleciona_funcionalidade(opcao):
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
     imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
+  elif opcao == 14:
+    print("Grafo: " + grafo.nome + "\n")
+    imprime_vertices('Vértices existentes: ', grafo.vertices)
+    imprime_arestas('Arestas existentes: ', grafo.arestas)
   else:
     print('Xau')
 
@@ -78,9 +82,10 @@ def display_menu():
   11 - Exibir Matriz de Adjacências
   12 - Verificar existência de um caminho de Euler
   13 - Ler entrada a partir de arquivo
-  14 - Sair\n''')
+  14 - Visualizar vertices e arestas
+  15 - Sair\n''')
 
-while opcao != 14:
+while opcao != 15:
   display_menu()
   opcao = int(input('Selecione uma opção: '))
   print('----------------------- \n')
