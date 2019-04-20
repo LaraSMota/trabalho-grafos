@@ -72,7 +72,7 @@ class Grafo:
         aux_arestas.append(a.id)
     return aux_arestas
   
-  def get_vertice_index(self, nome):
+  def get_vertice_index(self, id):
     for index, vertice in enumerate(self.vertices):
       if vertice.id == id:
         return index
