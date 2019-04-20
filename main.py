@@ -8,7 +8,7 @@ def imprime_vertices(msg, vertices):
     v_concatenado += (v.id + ' ')
   print(msg, v_concatenado, '\n')
 
-def imprime_vertices_adjacentes(vertices):
+def imprime_vertices_adjacentes(msg, vertices):
   v_concatenado = ''
   for v in vertices:
     v_concatenado += (v + ' ')
@@ -45,10 +45,15 @@ def seleciona_funcionalidade(opcao):
     aresta_deletada = grafo.deleta_aresta(id_aresta)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
-  elif opcao == 6:  #VERTICES ADJACENTES
+  elif opcao == 5:
+    v1 = input('Digite o id do primeiro vértice: ').upper()
+    v2 = input('Digite o id do segundo vértice: ').upper()
+    resposta = grafo.exite_aresta_entre_vertices(v1, v2)
+    print('\n', resposta['msg'])
+  elif opcao == 6:
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
-    imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
+    imprime_vertices_adjacentes('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
   elif opcao == 7:  #IMPRIME GRAU DE VERTICE
     id_vertice = input('Digite o id do vértice: ').upper()
     print("Grau: " + grafo.get_vertice_grau(id_vertice))
