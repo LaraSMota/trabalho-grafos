@@ -23,7 +23,7 @@ def imprime_arestas(msg, arestas):
 def seleciona_funcionalidade(opcao):
   if opcao == 1:
     nome_grafo = input('Digite nome do grafo: ')
-    direcionado = input('É direcionado?(y ou n) ')
+    direcionado = input('É direcionado? (s ou n) ')
     while direcionado != 's' and direcionado != 'n':
       direcionado = input('Digite \'s\' ou \'n\': ')
     if direcionado == 's':
@@ -42,10 +42,10 @@ def seleciona_funcionalidade(opcao):
       print('OBS: Ambos os vértices devem existir')
       print('------------------------------------')
       id = input('Digite um identificador para a aresta: ')
-      vertice_1 = input('Digite o vertice 1: ').upper()
-      vertice_2 = input('Digite o vertice 2: ').upper()
+      v1 = input('Digite o vertice 1: ').upper()
+      v2 = input('Digite o vertice 2: ').upper()
       peso = int(input('Digite o peso: '))
-      aresta_criada = grafo.criar_aresta(id, vertice_1, vertice_2, peso)
+      aresta_criada = grafo.criar_aresta(id, v1, v2, peso)
   elif opcao == 4:
     imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ')
@@ -56,6 +56,11 @@ def seleciona_funcionalidade(opcao):
     imprime_vertices('Vértices criados: ', grafo.vertices)
     id_vertice = input('Digite o id do vértice: ')
     grafo.deleta_vertice(id_vertice)
+  elif opcao == 6:
+    v1 = input('Digite o id do primeiro vértice: ').upper()
+    v2 = input('Digite o id do segundo vértice: ').upper()
+    resposta = grafo.exite_aresta_entre_vertices(v1, v2)
+    print('\n', resposta['msg'])
   elif opcao == 7:
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)

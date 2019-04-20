@@ -3,8 +3,6 @@ from aresta import *
 
 class Grafo:
 
-  identificador = 0
-
   def __init__(self, nome, direcionado):
     self.nome = nome
     self.direcionado = direcionado
@@ -15,7 +13,7 @@ class Grafo:
     existe_vertice_1 = self.elemento_existe(vertice_1, self.vertices)
     existe_vertice_2 = self.elemento_existe(vertice_2, self.vertices)
     if existe_vertice_1 and existe_vertice_2:
-      aresta = Aresta(id, vertice_1, vertice_2, peso)
+      aresta = Aresta(id.upper(), vertice_1, vertice_2, peso)
       self.arestas.append(aresta)
       return True
     else:
@@ -72,7 +70,7 @@ class Grafo:
         aux_arestas.append(a.id)
     return aux_arestas
   
-  def get_vertice_index(self, nome):
+  def get_vertice_index(self, id):
     for index, vertice in enumerate(self.vertices):
       if vertice.id == id:
         return index
@@ -89,3 +87,16 @@ class Grafo:
       aux.append(aresta.vertice_2.nome)
       aux.append(aresta.peso)
     return aux
+
+  def exite_aresta_entre_vertices(self, v1, v2):
+    resposta = {"msg": "Não existe aresta entre os vértices {} e {}.".format(v1, v2)}
+    v1_existe = self.elemento_existe(v1, self.vertices)
+    v2_existe = self.elemento_existe(v2, self.vertices)
+    if v1_existe and v2_existe:
+      for aresta in self.arestas:
+        if (aresta.vertice_1 == v1 and aresta.vertice_2 == v2) or (aresta.vertice_1 == v2 and aresta.vertice_2 == v1):
+          resposta = {"msg": "Existe uma aresta entre os vértices {} e {}.".format(v1, v2)}
+          return resposta
+    else:
+      resposta = {"msg": "Ambos os vértices devem existir."}
+    return resposta
