@@ -8,7 +8,7 @@ def imprime_vertices(msg, vertices):
     v_concatenado += (v.id + ' ')
   print(msg, v_concatenado, '\n')
 
-def imprime_vertices_adjacentes(vertices):
+def imprime_vertices_adjacentes(msg, vertices):
   v_concatenado = ''
   for v in vertices:
     v_concatenado += (v + ' ')
@@ -21,22 +21,7 @@ def imprime_arestas(msg, arestas):
   print(msg, a_concatenado, '\n')
 
 def seleciona_funcionalidade(opcao):
-<<<<<<< HEAD
-  if opcao == 1:
-    nome_grafo = input('Digite nome do grafo: ')
-    direcionado = input('É direcionado? (s ou n) ')
-    while direcionado != 's' and direcionado != 'n':
-      direcionado = input('Digite \'s\' ou \'n\': ')
-    if direcionado == 's':
-      ehDirecionado = True
-    else:
-      ehDirecionado = False
-    global grafo
-    grafo = Grafo(nome_grafo, ehDirecionado)
-  elif opcao == 2:
-=======
   if opcao == 1:  #INSERIR VERTICES
->>>>>>> b322afe9501ea2a8ba123797e46f9fed8fc31388
     vertices = input('Digite os vértices: ')
     grafo.criar_vertices(vertices)
   elif opcao == 2:  #INSERIR ARESTA
@@ -45,13 +30,6 @@ def seleciona_funcionalidade(opcao):
     while aresta_criada == False:
       print('OBS: Ambos os vértices devem existir')
       print('------------------------------------')
-<<<<<<< HEAD
-      id = input('Digite um identificador para a aresta: ')
-      v1 = input('Digite o vertice 1: ').upper()
-      v2 = input('Digite o vertice 2: ').upper()
-      peso = int(input('Digite o peso: '))
-      aresta_criada = grafo.criar_aresta(id, v1, v2, peso)
-=======
       id = input('Digite um identificador para a aresta: ').upper()
       vertice_1 = input('Digite o vertice 1: ').upper()
       vertice_2 = input('Digite o vertice 2: ').upper()
@@ -62,30 +40,21 @@ def seleciona_funcionalidade(opcao):
     id_vertice = input('Digite o id do vértice: ').upper()
     grafo.deleta_vertice(id_vertice)
   #DELETAR ARESTA
->>>>>>> b322afe9501ea2a8ba123797e46f9fed8fc31388
   elif opcao == 4:
     imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ').upper()
     aresta_deletada = grafo.deleta_aresta(id_aresta)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
-<<<<<<< HEAD
   elif opcao == 5:
-    imprime_vertices('Vértices criados: ', grafo.vertices)
-    id_vertice = input('Digite o id do vértice: ')
-    grafo.deleta_vertice(id_vertice)
-  elif opcao == 6:
     v1 = input('Digite o id do primeiro vértice: ').upper()
     v2 = input('Digite o id do segundo vértice: ').upper()
     resposta = grafo.exite_aresta_entre_vertices(v1, v2)
     print('\n', resposta['msg'])
-  elif opcao == 7:
-=======
-  elif opcao == 5:  #TESTAR EXISTENCIA DE ARESTA
->>>>>>> b322afe9501ea2a8ba123797e46f9fed8fc31388
+  elif opcao == 6:
     id_vertice = input('Digite o id do vértice: ').upper()
     vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
-    imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
+    imprime_vertices_adjacentes('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
     print("Grafo: " + grafo.nome + "\n")
     imprime_vertices('Vértices existentes: ', grafo.vertices)
