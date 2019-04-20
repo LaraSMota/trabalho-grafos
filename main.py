@@ -2,25 +2,25 @@ from grafo import *
 
 opcao = 0
 
-def imprime_vertices(vertices):
+def imprime_vertices(msg, vertices):
   v_concatenado = ''
-  for v in vertices:
+  for v in grafo.vertices:
     v_concatenado += (v.id + ' ')
-  print('Vértices criados: ', v_concatenado, '\n')
+  print(msg, v_concatenado, '\n')
 
-def imprime_arestas(arestas):
+def imprime_arestas(msg, arestas):
   a_concatenado = ''
-  for a in arestas:
+  for a in grafo.arestas:
     a_concatenado += (a.id + ' ')
-  print('Arestas criadas: ', a_concatenado, '\n')
+  print(msg, a_concatenado, '\n')
 
 def seleciona_funcionalidade(opcao):
   if opcao == 1:
     nome_grafo = input('Digite nome do grafo: ')
     direcionado = input('É direcionado?(y ou n) ')
-    while not(direcionado != 'y' or direcionado != 'n'):
-      direcionado = input('Digite \'y\' ou \'n\' ')
-    if direcionado == 'y':
+    while direcionado != 's' and direcionado != 'n':
+      direcionado = input('Digite \'s\' ou \'n\': ')
+    if direcionado == 's':
       ehDirecionado = True
     else:
       ehDirecionado = False
@@ -30,7 +30,7 @@ def seleciona_funcionalidade(opcao):
     vertices = input('Digite os vértices: ')
     grafo.criar_vertices(vertices)
   elif opcao == 3:
-    imprime_vertices(grafo.get_vertices())
+    imprime_vertices('Vértices existentes: ', grafo.vertices)
     aresta_criada = False
     while aresta_criada == False:
       print('OBS: Ambos os vértices devem existir')
@@ -41,12 +41,20 @@ def seleciona_funcionalidade(opcao):
       peso = int(input('Digite o peso: '))
       aresta_criada = grafo.criar_aresta(id, vertice_1, vertice_2, peso)
   elif opcao == 4:
-    imprime_arestas(grafo.arestas)
+    imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ')
     aresta_deletada = grafo.deleta_aresta(id_aresta)
-    print(aresta_deletada)
     if not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
+  elif opcao == 5:
+    imprime_vertices('Vértices criados: ', grafo.vertices)
+    id_vertice = input('Digite o id do vértice: ')
+    grafo.deleta_vertice(id_vertice)
+  elif opcao == 7:
+    id_vertice = input('Digite o id do vértice: ').upper()
+    vertices_adjacentes = grafo.get_vertices_adjacentes(id_vertice)
+    print(vertices_adjacentes)
+    imprime_vertices('Vértices adjacentes ao vértice {}:'.format(id_vertice), vertices_adjacentes)
   else:
     print('Xau')
 

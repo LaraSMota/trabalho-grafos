@@ -49,15 +49,38 @@ class Grafo:
     else:
       return False
 
+  def get_vertices_adjacentes(self, id_vertice):
+    vertices_adjacentes = []
+    for aresta in self.arestas:
+      if aresta.vertice_1 == id_vertice:
+        print('entrou 1')
+        vertices_adjacentes.append(aresta.vertice_2)
+      elif aresta.vertice_2 == id_vertice:
+        print('entrou 2')
+        vertices_adjacentes.append(aresta.vertice_1)
+    print('adjacentes ', vertices_adjacentes)
+    return vertices_adjacentes
 
   def deleta_vertice(self, id):
     index_remocao = self.get_vertice_index(id)
     self.vertices.pop(index_remocao)
+    remover_arestas = self.get_arestas_from_vertice(id)
+    for aresta in remover_arestas:
+      self.deleta_aresta(aresta)
+
+  def get_arestas_from_vertice(self, id_vertice):
+    aux_arestas = []
+    for a in self.arestas:
+      if a.vertice_1 == id_vertice or a.vertice_2 == id_vertice:
+        aux_arestas.append(a.id)
+    return aux_arestas
   
   def get_vertice_index(self, nome):
     for index, vertice in enumerate(self.vertices):
       if vertice.id == id:
         return index
+    else:
+      return False
 
   def get_vertices(self): 
     return self.vertices
