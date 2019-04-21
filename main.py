@@ -47,7 +47,7 @@ def seleciona_funcionalidade(opcao):
     imprime_arestas('Arestas existentes: ', grafo.arestas)
     id_aresta = input('Digite o id da aresta: ').upper()
     aresta_deletada = grafo.deleta_aresta(id_aresta)
-    if not(aresta_deletada):
+    if type(aresta_deletada) == bool and not(aresta_deletada):
       print('A aresta deve ter sido criada para realizar essa ação')
   
   elif opcao == 5: #VERIFICA ARESTA
