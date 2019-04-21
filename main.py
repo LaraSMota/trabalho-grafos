@@ -1,3 +1,4 @@
+import xlrd 
 from grafo import *
 
 opcao = 0
@@ -69,6 +70,9 @@ def seleciona_funcionalidade(opcao):
     print("Grau médio: {}\n".format(grafo.grau_medio()))
     print("Grau máximo: {}".format(grafo.grau_maximo())) 
    
+  elif opcao == 12: #Le de arquivo
+    grafo.le_arquivo()
+    
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
     print("Grafo: {}\n".format(grafo.nome))
     imprime_vertices('Vértices existentes: ', grafo.vertices)

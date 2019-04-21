@@ -1,5 +1,6 @@
 from vertice import *
 from aresta import *
+import xlrd
 
 class Grafo:
 
@@ -137,3 +138,10 @@ class Grafo:
     else:
       resposta = {"msg": "Ambos os vértices devem existir."}
     return resposta
+
+  def le_arquivo(self):
+    arquivo = xlrd.open_workbook("grafo.xlsx")
+    planilha_vertices = arquivo.sheet_by_index(0)
+    dado_coluna = planilha_vertices.col(0)
+    for texto in dado_coluna:
+      self.criar_vertices(texto.value)
