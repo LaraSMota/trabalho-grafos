@@ -189,9 +189,6 @@ class Grafo:
       result = False
     return result
   
-  def get_matriz_adjacencias(self):
-    return True
-  
   def gera_matriz_de_adjacencia(self):
     self.aux_arestas = []
     self.matriz = []
