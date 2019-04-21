@@ -161,7 +161,6 @@ class Grafo:
     while tam > 0:
       self.criar_aresta(planilha_arestas.cell_value(tam-1, 0), planilha_arestas.cell_value(tam-1, 1), planilha_arestas.cell_value(tam-1, 2), planilha_arestas.cell_value(tam-1, 3))
       tam -= 1
-  
   def eh_conexo(self):
     self.visitado = []
     vertices_visitados = self.busca_em_profundidade(self.vertices[0].id)
