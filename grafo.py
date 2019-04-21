@@ -6,11 +6,12 @@ class Grafo:
 
   aux_arestas = []
   arestas_indices = {}
-  matrix = []
+  matriz = []
 
-  def __init__(self, nome, direcionado):
+  def __init__(self, nome, dirigido, ponderado):
     self.nome = nome
-    self.direcionado = direcionado
+    self.dirigido = dirigido
+    self.ponderado = ponderado
     self.vertices = []
     self.arestas = []
     self.visitado = []
@@ -192,22 +193,39 @@ class Grafo:
   def get_matriz_adjacencias(self):
     return True
   
-  def get_arestas_id(self):
-    self.formata_matrix()
+  def gera_matriz_de_adjacencia(self):
+    self.aux_arestas = []
+    self.matriz = []
+    self.arestas_indices = {}
+    self.gera_matriz_com_zeros()
     for aresta in self.arestas:
       self.aux_arestas.append(aresta.id + str(aresta.peso))
     print('Aux aresta no get_arestas_id ', self.aux_arestas)
-    for a in self.aux_arestas:
-      self.add_arestas_a_matrix(a[:1], a[1:2], a[2:3])
-    print('Matrix: \n', self.matrix)
+    if self.ponderado:
+      for a in self.aux_arestas:
+        self.matriz_adjacencia_ponderada(a[:1], a[1:2], a[2:3])
+    elif not(self.ponderado) and not(self.dirigido):
+      for a in self.aux_arestas:
+        self.matriz_adjacencia(a[:1], a[1:2])
+    elif not(self.ponderado) and self.dirigido:
+      for a in self.aux_arestas:
+        self.matriz_adjacencia_dirigida(a[:1], a[1:2])
+    return self.matriz
 
-  def formata_matrix(self):
+  def gera_matriz_com_zeros(self):
     for vertice in self.vertices:
-      self.matrix.append([0] * (len(self.vertices)))
+      self.matriz.append([0] * (len(self.vertices)))
       self.arestas_indices[vertice.id] = len(self.arestas_indices)
-    print('Matrix: ', self.matrix)
+    print('matriz: ', self.matriz)
     print('Arestas indices: ', self.arestas_indices)
 
-  def add_arestas_a_matrix(self, v1, v2, peso):
-    self.matrix[self.arestas_indices[v1]][self.arestas_indices[v2]] = peso    
-    self.matrix[self.arestas_indices[v2]][self.arestas_indices[v1]] = peso 
+  def matriz_adjacencia_ponderada(self, v1, v2, peso):
+    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + int(peso)    
+    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]]) + int(peso) 
+  
+  def matriz_adjacencia(self, v1, v2):
+    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1  
+    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]]) + 1
+  
+  def matriz_adjacencia_dirigida(self, v1, v2):
+    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1

@@ -78,7 +78,8 @@ def seleciona_funcionalidade(opcao):
       print('Falso')
 
   elif opcao == 10:
-    grafo.get_arestas_id()
+    matriz = grafo.gera_matriz_de_adjacencia()
+    print(matriz)
 
   elif opcao == 11:
     euler = grafo.eh_euleriano()
@@ -118,29 +119,27 @@ def display_menu():
 
 print("Seja bem vindo! \n")
 nome_grafo = input('Digite nome do grafo: ')
-direcionado = input('É direcionado?(s ou n) ')
-while direcionado != 's' and direcionado != 'n':
-  direcionado = input('Digite \'s\' ou \'n\': ')
-if direcionado == 's':
-  ehDirecionado = True
+dirigido = input('É dirigido?(s ou n) ')
+while dirigido != 's' and dirigido != 'n':
+  dirigido = input('Digite \'s\' ou \'n\': ')
+if dirigido == 's':
+  ehdirigido = True
 else:
-  ehDirecionado = False
+  ehdirigido = False
+
+ponderado = input('É ponderado?(s ou n) ')
+while ponderado != 's' and ponderado != 'n':
+  ponderado = input('Digite \'s\' ou \'n\': ')
+if ponderado == 's':
+  ehPonderado = True
+else:
+  ehPonderado = False
+
 global grafo
-grafo = Grafo(nome_grafo, ehDirecionado)
+grafo = Grafo(nome_grafo, ehdirigido, ehPonderado)
 
 while opcao != 14:
   display_menu()
   opcao = int(input('Selecione uma opção: '))
   print('----------------------- \n')
   seleciona_funcionalidade(opcao)
-# SETUP DE TESTES
-# grafo = Grafo('Grafo 1')
-# vertices = input('Digite os vértices')
-# lista_vertice = grafo.criar_vertice(vertices)
-
-# g.criar_vertice("A")
-# g.criar_vertice("B")
-# g.criar_vertice("C")
-# g.criar_vertice("D")
-# g.criar_aresta(0,2,0)
-# print(g.get_arestas())
