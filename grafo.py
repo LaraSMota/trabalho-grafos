@@ -33,8 +33,11 @@ class Grafo:
   def criar_vertices(self, id):
     lista_vertices = self.get_lista_elementos(id)
     for v in lista_vertices:
-      vertice = Vertice(v.upper())
-      self.vertices.append(vertice)
+      if self.elemento_existe(v, self.vertices):
+        print("Vertice {} já existe na lista".format(v))
+      else:
+        vertice = Vertice(v.upper())
+        self.vertices.append(vertice)
     return self.vertices
   
   def get_lista_elementos(self, id):
