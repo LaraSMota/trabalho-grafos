@@ -141,7 +141,14 @@ class Grafo:
 
   def le_arquivo(self):
     arquivo = xlrd.open_workbook("grafo.xlsx")
+
     planilha_vertices = arquivo.sheet_by_index(0)
     dado_coluna = planilha_vertices.col(0)
     for texto in dado_coluna:
       self.criar_vertices(texto.value)
+
+    planilha_arestas = arquivo.sheet_by_index(1)
+    tam = planilha_arestas.nrows
+    while tam > 0:
+      self.criar_aresta(planilha_arestas.cell_value(tam-1, 0), planilha_arestas.cell_value(tam-1, 1), planilha_arestas.cell_value(tam-1, 2), planilha_arestas.cell_value(tam-1, 3))
+      tam -= 1
