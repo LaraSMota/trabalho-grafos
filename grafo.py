@@ -155,3 +155,31 @@ class Grafo:
     while tam > 0:
       self.criar_aresta(planilha_arestas.cell_value(tam-1, 0), planilha_arestas.cell_value(tam-1, 1), planilha_arestas.cell_value(tam-1, 2), planilha_arestas.cell_value(tam-1, 3))
       tam -= 1
+
+  def eh_conexo(self):
+    self.visitado = []
+    vertices_visitados = self.busca_em_profundidade(self.vertices[0].id)
+    return len(vertices_visitados) == len(self.vertices)
+
+  def busca_em_profundidade(self, id):
+    self.visitado.append(id)
+    v_adjacentes = self.get_vertices_adjacentes(id)
+    for v in v_adjacentes:
+      if not(v in self.visitado):
+        self.busca_em_profundidade(v)
+    return self.visitado
+
+  def eh_euleriano(self):
+    resposta = self.eh_conexo()
+    impares = 0
+    if (resposta):
+      for i in self.vertices:
+        if (i.grau % 2 != 0):
+          impares += 1
+      if (impares == 0) or (impares == 2):
+        result = True
+      else: 
+        result = False
+    else:
+      result = False
+    return result

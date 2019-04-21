@@ -68,7 +68,22 @@ def seleciona_funcionalidade(opcao):
   elif opcao == 8:  #IMPRIME GRAU MINIMO, MEDIO E MAXIMO
     print("Grau mínimo: {}\n".format(grafo.grau_minimo()))
     print("Grau médio: {}\n".format(grafo.grau_medio()))
-    print("Grau máximo: {}".format(grafo.grau_maximo())) 
+    print("Grau máximo: {}".format(grafo.grau_maximo()))
+
+  elif opcao == 9:
+    grafo_conexo = grafo.eh_conexo()
+    if grafo_conexo:
+      print('Verdadeiro')
+    else:
+      print('Falso')
+      
+  elif opcao == 11:
+    euler = grafo.eh_euleriano()
+    print(euler)
+    if euler:
+      print("Existe caminho de euler") 
+    else:
+      print("Não existe caminho de euler") 
    
   elif opcao == 12: #Le de arquivo
     grafo.le_arquivo()
