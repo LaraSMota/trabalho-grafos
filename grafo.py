@@ -4,11 +4,16 @@ import xlrd
 
 class Grafo:
 
+  aux_arestas = []
+  arestas_indices = {}
+  matrix = []
+
   def __init__(self, nome, direcionado):
     self.nome = nome
     self.direcionado = direcionado
     self.vertices = []
     self.arestas = []
+    self.visitado = []
 
   def criar_aresta(self, id, vertice_1, vertice_2, peso):
     existe_vertice_1 = self.elemento_existe(vertice_1, self.vertices)
@@ -155,3 +160,54 @@ class Grafo:
     while tam > 0:
       self.criar_aresta(planilha_arestas.cell_value(tam-1, 0), planilha_arestas.cell_value(tam-1, 1), planilha_arestas.cell_value(tam-1, 2), planilha_arestas.cell_value(tam-1, 3))
       tam -= 1
+  
+  def eh_conexo(self):
+    self.visitado = []
+    vertices_visitados = self.busca_em_profundidade(self.vertices[0].id)
+    return len(vertices_visitados) == len(self.vertices)
+
+  def busca_em_profundidade(self, id):
+    self.visitado.append(id)
+    v_adjacentes = self.get_vertices_adjacentes(id)
+    for v in v_adjacentes:
+      if not(v in self.visitado):
+        self.busca_em_profundidade(v)
+    return self.visitado
+  
+  def eh_euleriano(self):
+    resposta = self.eh_conexo()
+    impares = 0
+    if (resposta):
+      for i in self.vertices:
+        if (i.grau % 2 != 0):
+          impares += 1
+      if (impares == 0) or (impares == 2):
+        result = True
+      else: 
+        result = False
+    else:
+      result = False
+    return result
+  
+  def get_matriz_adjacencias(self):
+    return True
+  
+  def get_arestas_id(self):
+    self.formata_matrix()
+    for aresta in self.arestas:
+      self.aux_arestas.append(aresta.id + str(aresta.peso))
+    print('Aux aresta no get_arestas_id ', self.aux_arestas)
+    for a in self.aux_arestas:
+      self.add_arestas_a_matrix(a[:1], a[1:2], a[2:3])
+    print('Matrix: \n', self.matrix)
+
+  def formata_matrix(self):
+    for vertice in self.vertices:
+      self.matrix.append([0] * (len(self.vertices)))
+      self.arestas_indices[vertice.id] = len(self.arestas_indices)
+    print('Matrix: ', self.matrix)
+    print('Arestas indices: ', self.arestas_indices)
+
+  def add_arestas_a_matrix(self, v1, v2, peso):
+    self.matrix[self.arestas_indices[v1]][self.arestas_indices[v2]] = peso    
+    self.matrix[self.arestas_indices[v2]][self.arestas_indices[v1]] = peso 
