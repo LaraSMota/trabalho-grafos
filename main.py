@@ -70,18 +70,17 @@ def seleciona_funcionalidade(opcao):
     print("Grau médio: {}\n".format(grafo.grau_medio()))
     print("Grau máximo: {}".format(grafo.grau_maximo())) 
 
-  elif opcao == 9:
+  elif opcao == 9: #VERIFICA SE É CONEXO
     grafo_conexo = grafo.eh_conexo()
     if grafo_conexo:
       print('Verdadeiro')
     else:
       print('Falso')
 
-  elif opcao == 10:
-    matriz = grafo.gera_matriz_de_adjacencia()
-    print(matriz)
+  elif opcao == 10: #MATRIZ DE ADJACENCIA
+    grafo.imprime_matriz()
 
-  elif opcao == 11:
+  elif opcao == 11: #VERIFICA CAMINHO DE EULER
     euler = grafo.eh_euleriano()
     print(euler)
     if euler:
@@ -89,7 +88,7 @@ def seleciona_funcionalidade(opcao):
     else:
       print("Não existe caminho de euler")
 
-  elif opcao == 12: #Le de arquivo
+  elif opcao == 12: #LE DE ARQUIVO
     grafo.le_arquivo()
     
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
@@ -118,19 +117,19 @@ def display_menu():
   14 - Sair\n''')
 
 print("Seja bem vindo! \n")
-nome_grafo = input('Digite nome do grafo: ')
+nome_grafo = input('Digite nome do grafo: ').upper()
 dirigido = input('É dirigido?(s ou n) ')
-while dirigido != 's' and dirigido != 'n':
+while dirigido != 'S' and dirigido != 'N':
   dirigido = input('Digite \'s\' ou \'n\': ')
-if dirigido == 's':
+if dirigido == 'S':
   ehdirigido = True
 else:
   ehdirigido = False
 
-ponderado = input('É ponderado?(s ou n) ')
-while ponderado != 's' and ponderado != 'n':
+ponderado = input('É ponderado?(s ou n) ').upper()
+while ponderado != 'S' and ponderado != 'N':
   ponderado = input('Digite \'s\' ou \'n\': ')
-if ponderado == 's':
+if ponderado == 'S':
   ehPonderado = True
 else:
   ehPonderado = False

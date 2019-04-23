@@ -196,7 +196,6 @@ class Grafo:
     self.gera_matriz_com_zeros()
     for aresta in self.arestas:
       self.aux_arestas.append(aresta.id + str(aresta.peso))
-    print('Aux aresta no get_arestas_id ', self.aux_arestas)
     if self.ponderado:
       for a in self.aux_arestas:
         self.matriz_adjacencia_ponderada(a[:1], a[1:2], a[2:3])
@@ -206,14 +205,29 @@ class Grafo:
     elif not(self.ponderado) and self.dirigido:
       for a in self.aux_arestas:
         self.matriz_adjacencia_dirigida(a[:1], a[1:2])
+
+    #DEIXA MATRIZ BONITINHA PRA SER IMPRESSA :)
+    matriz_aux = []
+    linha_aux = []
+    linha_aux.append(" ")
+    for vertice in self.vertices:
+      linha_aux.append(vertice.id)
+    matriz_aux.append(linha_aux)
+    aux = 0
+    for vertice in self.vertices:
+      linha_aux = []
+      linha_aux.append(vertice.id)
+      for registro in self.matriz[aux]:
+        linha_aux.append(registro)
+      matriz_aux.append(linha_aux)
+      aux += 1
+    self.matriz = matriz_aux
     return self.matriz
 
   def gera_matriz_com_zeros(self):
     for vertice in self.vertices:
       self.matriz.append([0] * (len(self.vertices)))
       self.arestas_indices[vertice.id] = len(self.arestas_indices)
-    print('matriz: ', self.matriz)
-    print('Arestas indices: ', self.arestas_indices)
 
   def matriz_adjacencia_ponderada(self, v1, v2, peso):
     self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + int(peso)    
@@ -225,3 +239,9 @@ class Grafo:
   
   def matriz_adjacencia_dirigida(self, v1, v2):
     self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1
+
+  def imprime_matriz(self):
+    matriz = self.gera_matriz_de_adjacencia()
+    tam = len(self.vertices) + 1
+    for linha in range(0, tam, 1):
+      print("{}\n".format(matriz[linha]))
