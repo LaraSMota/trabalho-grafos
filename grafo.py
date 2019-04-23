@@ -196,9 +196,12 @@ class Grafo:
     self.gera_matriz_com_zeros()
     for aresta in self.arestas:
       self.aux_arestas.append(aresta.id + str(aresta.peso))
-    if self.ponderado:
+    if self.ponderado and not(self.dirigido):
       for a in self.aux_arestas:
         self.matriz_adjacencia_ponderada(a[:1], a[1:2], a[2:3])
+    elif self.ponderado and self.dirigido:
+      for a in self.aux_arestas:
+        self.matriz_adjacencia_ponderada_dirigida(a[:1], a[1:2], a[2:3])
     elif not(self.ponderado) and not(self.dirigido):
       for a in self.aux_arestas:
         self.matriz_adjacencia(a[:1], a[1:2])
@@ -239,7 +242,9 @@ class Grafo:
   
   def matriz_adjacencia_dirigida(self, v1, v2):
     self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1
-    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]]) - 1
+
+  def matriz_adjacencia_ponderada_dirigida(self, v1, v2, peso):
+    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + int(peso)
 
   def imprime_matriz(self):
     matriz = self.gera_matriz_de_adjacencia()
