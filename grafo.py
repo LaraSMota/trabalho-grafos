@@ -239,6 +239,7 @@ class Grafo:
   
   def matriz_adjacencia_dirigida(self, v1, v2):
     self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1
+    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]]) - 1
 
   def imprime_matriz(self):
     matriz = self.gera_matriz_de_adjacencia()
