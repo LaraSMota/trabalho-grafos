@@ -80,6 +80,13 @@ class Grafo:
         vertices_adjacentes.append(aresta.vertice_1)
     return vertices_adjacentes
 
+  def get_vertices_adjacentes_dirigido(self, id_vertice):
+    vertices_adjacentes = []
+    for aresta in self.arestas:
+      if aresta.vertice_1 == id_vertice:
+        vertices_adjacentes.append(aresta.vertice_2)
+    return vertices_adjacentes
+
   def deleta_vertice(self, id):
     index_remocao = self.get_vertice_index(id)
     self.vertices.pop(index_remocao)
@@ -166,6 +173,12 @@ class Grafo:
     vertices_visitados = self.busca_em_profundidade(self.vertices[0].id)
     return len(vertices_visitados) == len(self.vertices)
 
+  def eh_conexo_dirigido(self):
+    self.visitado = []
+    vertices_visitados = self.busca_em_profundidade_dirigido(self.vertices[0].id)
+    print(vertices_visitados)
+    return len(vertices_visitados) == len(self.vertices)
+
   def busca_em_profundidade(self, id):
     self.visitado.append(id)
     v_adjacentes = self.get_vertices_adjacentes(id)
@@ -174,6 +187,14 @@ class Grafo:
         self.busca_em_profundidade(v)
     return self.visitado
   
+  def busca_em_profundidade_dirigido(self, id):
+    self.visitado.append(id)
+    v_adjacentes = self.get_vertices_adjacentes_dirigido(id)
+    for v in v_adjacentes:
+      if not(v in self.visitado):
+        self.busca_em_profundidade_dirigido(v)
+    return self.visitado
+
   def eh_euleriano(self):
     resposta = self.eh_conexo()
     impares = 0

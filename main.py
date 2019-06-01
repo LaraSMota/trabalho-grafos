@@ -71,7 +71,11 @@ def seleciona_funcionalidade(opcao):
     print("Grau máximo: {}".format(grafo.grau_maximo())) 
 
   elif opcao == 9:
-    grafo_conexo = grafo.eh_conexo()
+    if grafo.dirigido:
+      print('dirigido')
+      grafo_conexo = grafo.eh_conexo_dirigido()
+    else:
+      grafo_conexo = grafo.eh_conexo()
     if grafo_conexo:
       print('Verdadeiro')
     else:
