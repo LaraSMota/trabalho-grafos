@@ -267,6 +267,12 @@ class Grafo:
       self.matriz.append([0] * (len(self.vertices)))
       self.arestas_indices[vertice.id] = len(self.arestas_indices)
 
+  def gera_copia_matriz_com_zeros(self):
+    matriz_copia = []
+    for vertice in self.vertices:
+      matriz_copia.append([0] * (len(self.vertices)))
+    return matriz_copia
+
   def adiciona_zero_a_diagonal(self):
     for i in range(len(self.vertices)):
       self.matriz[i][i] = 0
@@ -306,8 +312,15 @@ class Grafo:
       print("{}\n".format(self.matriz[linha]))
 
   def algoritmo_floyd(self):
+    caminho = self.gera_copia_matriz_com_zeros()
     for k in range(len(self.vertices)): 
       for i in range(len(self.vertices)):
         for j in range(len(self.vertices)):
-          self.matriz[i][j] = min(self.matriz[i][j] , self.matriz[i][k] + self.matriz[k][j])
-    self.imprime_matriz_acessibilidade()
+          if self.matriz[i][k] + self.matriz[k][j] < self.matriz[i][j]:
+            self.matriz[i][j] = self.matriz[i][k] + self.matriz[k][j]
+            caminho[i][j] = k
+    self.imprime_matriz_caminho(caminho)
+
+  def imprime_matriz_caminho(self, matriz):
+    for linha in range(len(self.vertices)):
+      print("{}\n".format(matriz[linha]))
