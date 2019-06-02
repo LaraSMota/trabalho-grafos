@@ -1,6 +1,7 @@
 from vertice import *
 from aresta import *
 import xlrd
+import math
 
 class Grafo:
 
@@ -176,7 +177,6 @@ class Grafo:
   def eh_conexo_dirigido(self):
     self.visitado = []
     vertices_visitados = self.busca_em_profundidade_dirigido(self.vertices[0].id)
-    print(vertices_visitados)
     return len(vertices_visitados) == len(self.vertices)
 
   def busca_em_profundidade(self, id):
@@ -214,12 +214,19 @@ class Grafo:
     self.aux_arestas = []
     self.matriz = []
     self.arestas_indices = {}
-    self.gera_matriz_com_zeros()
+    if self.ponderado and not(self.dirigido):
+      self.gera_matriz_caminho_minimo()
+    else:
+      self.gera_matriz_com_zeros()
     for aresta in self.arestas:
       self.aux_arestas.append(aresta.id + str(aresta.peso))
     if self.ponderado and not(self.dirigido):
       for a in self.aux_arestas:
-        self.matriz_adjacencia_ponderada(a[:1], a[1:2], a[2:3])
+        if len(a) == 6:
+          peso = a[2:4]
+        else:
+          peso = a[2:3]
+        self.matriz_adjacencia_ponderada(a[:1], a[1:2], peso)
     elif self.ponderado and self.dirigido:
       for a in self.aux_arestas:
         self.matriz_adjacencia_ponderada_dirigida(a[:1], a[1:2], a[2:3])
@@ -230,7 +237,7 @@ class Grafo:
       for a in self.aux_arestas:
         self.matriz_adjacencia_dirigida(a[:1], a[1:2])
 
-    #DEIXA MATRIZ BONITINHA PRA SER IMPRESSA :)
+    # DEIXA MATRIZ BONITINHA PRA SER IMPRESSA :)
     # matriz_aux = []
     # linha_aux = []
     # linha_aux.append(" ")
@@ -246,16 +253,29 @@ class Grafo:
     #   matriz_aux.append(linha_aux)
     #   aux += 1
     # self.matriz = matriz_aux
-    # return self.matriz
+    return self.matriz
+
+  def gera_matriz_caminho_minimo(self):
+    INF = 99999
+    for vertice in self.vertices:
+      self.matriz.append([INF] * (len(self.vertices)))
+      self.arestas_indices[vertice.id] = len(self.arestas_indices)
+    self.adiciona_zero_a_diagonal() 
 
   def gera_matriz_com_zeros(self):
     for vertice in self.vertices:
       self.matriz.append([0] * (len(self.vertices)))
       self.arestas_indices[vertice.id] = len(self.arestas_indices)
 
+  def adiciona_zero_a_diagonal(self):
+    for i in range(len(self.vertices)):
+      self.matriz[i][i] = 0
+    print('Matriz', self.matriz)
+
+
   def matriz_adjacencia_ponderada(self, v1, v2, peso):
-    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + int(peso)    
-    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]]) + int(peso) 
+    self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(peso)    
+    self.matriz[self.arestas_indices[v2]][self.arestas_indices[v1]] = int(peso) 
   
   def matriz_adjacencia(self, v1, v2):
     self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]] = int(self.matriz[self.arestas_indices[v1]][self.arestas_indices[v2]]) + 1  
@@ -270,7 +290,7 @@ class Grafo:
   def imprime_matriz(self):
     matriz = self.gera_matriz_de_adjacencia()
     tam = len(self.vertices) + 1
-    for linha in range(0, tam, 1):
+    for linha in range(len(self.vertices)):
       print("{}\n".format(matriz[linha]))
   
   def algoritmo_warshall(self):
@@ -279,8 +299,15 @@ class Grafo:
       for i in range(len(self.vertices)):
         for j in range(len(self.vertices)):
           self.matriz[i][j] = self.matriz[i][j] or (self.matriz[i][k] and self.matriz[k][j])
-    self.imprime_matrix_acessibilidade()
+    self.imprime_matriz_acessibilidade()
   
-  def imprime_matrix_acessibilidade(self):
+  def imprime_matriz_acessibilidade(self):
     for linha in range(len(self.vertices)):
       print("{}\n".format(self.matriz[linha]))
+
+  def algoritmo_floyd(self):
+    for k in range(len(self.vertices)): 
+      for i in range(len(self.vertices)):
+        for j in range(len(self.vertices)):
+          self.matriz[i][j] = min(self.matriz[i][j] , self.matriz[i][k] + self.matriz[k][j])
+    self.imprime_matriz_acessibilidade()

@@ -101,6 +101,8 @@ def seleciona_funcionalidade(opcao):
     imprime_arestas('Arestas existentes: ', grafo.arestas)
   elif opcao == 14:
     grafo.algoritmo_warshall()
+  elif opcao == 17:
+    grafo.algoritmo_floyd()
   else:
     print('Xau')
 
@@ -140,7 +142,7 @@ else:
 ponderado = input('É ponderado?(s ou n) ').upper()
 while ponderado != 'S' and ponderado != 'N':
   ponderado = input('Digite \'s\' ou \'n\': ')
-if ponderado == 's':
+if ponderado == 'S':
   ehPonderado = True
 else:
   ehPonderado = False
