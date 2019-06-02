@@ -81,11 +81,10 @@ def seleciona_funcionalidade(opcao):
     else:
       print('Falso')
 
-  elif opcao == 10:
-    matriz = grafo.gera_matriz_de_adjacencia()
-    print(matriz)
+  elif opcao == 10: #MATRIZ DE ADJACENCIA
+    grafo.imprime_matriz()
 
-  elif opcao == 11:
+  elif opcao == 11: #VERIFICA CAMINHO DE EULER
     euler = grafo.eh_euleriano()
     print(euler)
     if euler:
@@ -93,14 +92,15 @@ def seleciona_funcionalidade(opcao):
     else:
       print("Não existe caminho de euler")
 
-  elif opcao == 12: #Le de arquivo
+  elif opcao == 12: #LE DE ARQUIVO
     grafo.le_arquivo()
     
   elif opcao == 13:  #IMPRIME VERTICES E ARESTAS
     print("Grafo: {}\n".format(grafo.nome))
     imprime_vertices('Vértices existentes: ', grafo.vertices)
     imprime_arestas('Arestas existentes: ', grafo.arestas)
-
+  elif opcao == 14:
+    grafo.algoritmo_warshall()
   else:
     print('Xau')
 
@@ -119,20 +119,26 @@ def display_menu():
   11 - Verificar existência de um caminho de Euler
   12 - Ler entrada a partir de arquivo
   13 - Visualizar vertices e arestas
-  14 - Sair\n''')
+  14 - Algoritmo de Warshall
+  15 - Algoritmo de Dijkstra
+  16 - Algoritmo de Bellman-Ford
+  17 - Algoritmo de Floyd
+  18 - Identificar número de componentes
+  19 - Identificar número de vértices no maior componente
+  20 - Sair\n''')
 
 print("Seja bem vindo! \n")
 nome_grafo = input('Digite nome do grafo: ')
-dirigido = input('É dirigido?(s ou n) ')
-while dirigido != 's' and dirigido != 'n':
+dirigido = input('É dirigido?(s ou n) ').upper()
+while dirigido != 'S' and dirigido != 'N':
   dirigido = input('Digite \'s\' ou \'n\': ')
-if dirigido == 's':
+if dirigido == 'S':
   ehdirigido = True
 else:
   ehdirigido = False
 
-ponderado = input('É ponderado?(s ou n) ')
-while ponderado != 's' and ponderado != 'n':
+ponderado = input('É ponderado?(s ou n) ').upper()
+while ponderado != 'S' and ponderado != 'N':
   ponderado = input('Digite \'s\' ou \'n\': ')
 if ponderado == 's':
   ehPonderado = True
@@ -142,7 +148,7 @@ else:
 global grafo
 grafo = Grafo(nome_grafo, ehdirigido, ehPonderado)
 
-while opcao != 14:
+while opcao != 20:
   display_menu()
   opcao = int(input('Selecione uma opção: '))
   print('----------------------- \n')
