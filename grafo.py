@@ -276,7 +276,6 @@ class Grafo:
   def adiciona_zero_a_diagonal(self):
     for i in range(len(self.vertices)):
       self.matriz[i][i] = 0
-    print('Matriz', self.matriz)
 
 
   def matriz_adjacencia_ponderada(self, v1, v2, peso):
@@ -319,8 +318,26 @@ class Grafo:
           if self.matriz[i][k] + self.matriz[k][j] < self.matriz[i][j]:
             self.matriz[i][j] = self.matriz[i][k] + self.matriz[k][j]
             caminho[i][j] = k
+    self.imprime_matriz()
     self.imprime_matriz_caminho(caminho)
 
   def imprime_matriz_caminho(self, matriz):
     for linha in range(len(self.vertices)):
       print("{}\n".format(matriz[linha]))
+  
+  def algoritmo_bellman_ford(self, start):
+    dist = []
+    for i in range(len(self.vertices)):
+      dist.append(99999)
+    dist[self.get_vertice_index(start)] = 0
+
+    relaxedAnEdge = True
+
+    for v in range(len(self.vertices)):
+      if relaxedAnEdge:
+        relaxedAnEdge = False
+        for edge in self.arestas:
+          if dist[self.get_vertice_index(edge.vertice_1)] + edge.peso < dist[self.get_vertice_index(edge.vertice_2)]:
+            dist[self.get_vertice_index(edge.vertice_2)] = dist[self.get_vertice_index(edge.vertice_1)] + edge.peso
+            relaxedAnEdge = True
+    print(dist)

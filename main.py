@@ -101,6 +101,9 @@ def seleciona_funcionalidade(opcao):
     imprime_arestas('Arestas existentes: ', grafo.arestas)
   elif opcao == 14:
     grafo.algoritmo_warshall()
+  elif opcao == 16:
+    origem = input('Digite o vértice de origem: ').upper()
+    grafo.algoritmo_bellman_ford(origem)
   elif opcao == 17:
     grafo.algoritmo_floyd()
   else:
@@ -130,8 +133,8 @@ def display_menu():
   20 - Sair\n''')
 
 print("Seja bem vindo! \n")
-nome_grafo = input('Digite nome do grafo: ')
-dirigido = input('É dirigido?(s ou n) ').upper()
+nome_grafo = input('Digite nome do grafo: ').upper()
+dirigido = input('É dirigido?(s ou n) ')
 while dirigido != 'S' and dirigido != 'N':
   dirigido = input('Digite \'s\' ou \'n\': ')
 if dirigido == 'S':
