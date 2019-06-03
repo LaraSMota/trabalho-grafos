@@ -341,3 +341,51 @@ class Grafo:
             dist[self.get_vertice_index(edge.vertice_2)] = dist[self.get_vertice_index(edge.vertice_1)] + edge.peso
             relaxedAnEdge = True
     print(dist)
+  
+  def algoritmo_dijkstra(self, origem):
+        fonte = self.get_vertice_index(origem)
+        if fonte is None:
+            return "Vertce Nulo"
+
+        self.inicializa_Fonte(fonte)
+        tempo = 0
+        lista = []
+        resposta = []  # conjunto resposta
+        lista_vertices = []
+        for i in lista_vertices:
+            lista.append(i)
+        while len(lista) != 0:
+            lista.sort()  # ordeno a lista baseado na estimativa
+            u = lista[0]
+            v = self.get_vertices_adjacentes(u)
+            if v is None:
+                for i in lista_vertices:  # como o vetice u marcou seus adj como visitado nenhum outro vértice visitara
+                    i.setVisitado(
+                        False)  # esse vertice então preciso marcar como não visitado pra bucar os adj de outro vertice
+                tempo += 1
+                u.setImput(tempo)  # apenas mostra a ordem de visitação do grafo
+                resposta.append(lista[0])
+                lista.pop(0)  # retiro vertice sem adjacente da lista
+
+            else:
+                w = self.exite_aresta_entre_vertices(u, v)
+                if w is not None:
+                    self.relaxa_Vertice(u, v, w)
+
+        print("Estimativas: ")
+        for i in resposta:
+            print(i)  # imprimo as respostas
+    
+  
+  def inicializa_Fonte(self, fonte):  # Função usado no BFS e Dijkstra Método recebe um Objeto
+      lista_vertices = []
+      for v in lista_vertices:
+          v.setEstimativa(99999)
+          v.setVisitado(False)
+      fonte.setVisitado(True)
+      fonte.setEstimativa(0)
+
+  def relaxa_Vertice(self, u, v, w):
+    if v.getEstimativa() > (u.getEstimativa() + w.getPeso()):
+        v.setEstimativa(u.getEstimativa() + w.getPeso())
+        v.predecessor.append(u.getId())  # guarda apenas o id

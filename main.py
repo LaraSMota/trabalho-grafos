@@ -101,6 +101,9 @@ def seleciona_funcionalidade(opcao):
     imprime_arestas('Arestas existentes: ', grafo.arestas)
   elif opcao == 14:
     grafo.algoritmo_warshall()
+  elif opcao == 15:
+    origem = input('Digite o vértice de origem: ').upper()
+    grafo.algoritmo_dijkstra(origem)
   elif opcao == 16:
     origem = input('Digite o vértice de origem: ').upper()
     grafo.algoritmo_bellman_ford(origem)
