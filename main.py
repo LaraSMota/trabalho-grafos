@@ -139,7 +139,7 @@ print("Seja bem vindo! \n")
 nome_grafo = input('Digite nome do grafo: ').upper()
 dirigido = input('É dirigido?(s ou n) ').upper()
 while dirigido != 'S' and dirigido != 'N':
-  dirigido = input('Digite \'s\' ou \'n\': ')
+  dirigido = input('Digite \'s\' ou \'n\': ').upper()
 if dirigido == 'S':
   ehdirigido = True
 else:
@@ -147,7 +147,7 @@ else:
 
 ponderado = input('É ponderado?(s ou n) ').upper()
 while ponderado != 'S' and ponderado != 'N':
-  ponderado = input('Digite \'s\' ou \'n\': ')
+  ponderado = input('Digite \'s\' ou \'n\': ').upper()
 if ponderado == 'S':
   ehPonderado = True
 else:
