@@ -137,7 +137,7 @@ def display_menu():
 
 print("Seja bem vindo! \n")
 nome_grafo = input('Digite nome do grafo: ').upper()
-dirigido = input('É dirigido?(s ou n) ')
+dirigido = input('É dirigido?(s ou n) ').upper()
 while dirigido != 'S' and dirigido != 'N':
   dirigido = input('Digite \'s\' ou \'n\': ')
 if dirigido == 'S':

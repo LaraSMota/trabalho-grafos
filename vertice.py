@@ -8,6 +8,12 @@ class Vertice:
         self.input = 0
         self.output = 0
 
+    def setId(self, id):
+        self.id = id
+
+    def getId(self):
+        return self.id
+
     def aumenta_grau(self):
         self.grau += 1
 

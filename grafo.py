@@ -343,9 +343,9 @@ class Grafo:
     print(dist)
   
   def algoritmo_dijkstra(self, origem):
-        fonte = self.get_vertice_index(origem)
+        fonte = self.busca_Vertice(origem)
         if fonte is None:
-            return "Vertce Nulo"
+            return "Vertece Nulo"
 
         self.inicializa_Fonte(fonte)
         tempo = 0
@@ -389,3 +389,11 @@ class Grafo:
     if v.getEstimativa() > (u.getEstimativa() + w.getPeso()):
         v.setEstimativa(u.getEstimativa() + w.getPeso())
         v.predecessor.append(u.getId())  # guarda apenas o id
+  
+  def busca_Vertice(self, identificador):  # Método recebe um int
+    lista_vertices = []
+    for i in lista_vertices:
+        if identificador == i.getId():
+            return i
+    else:
+        return None
